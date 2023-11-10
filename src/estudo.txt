@@ -1,0 +1,167 @@
+NodeJS:
+	- Ambiente que oferece recursos para executar aplicações Javascript fora do navegador (JSRuntimeEnviroment);
+	- Pode ser utilizado no Backend, Frontend e Micro serviços;
+	- V8 Engine: Interpretador Javascript, aumenta a performance de execuçãod do JS;
+	- Rota: Caminho de um ponto A a um ponto B
+		O caminho entre o site e o servidor é a URL
+	> NPM:
+		- Node Package Manager, é o gerenciador de pacotes padrão do Node.js
+		- Os pacotes e módulos necessários no projeto Node são instalados usando npm
+		- Também é utilizado para executar scripts e bibliotecas instaladas
+		- FOCO EM INSTALAÇÃO
+	> NPX:
+		- Node Package Execute, vem com o npm acima da versão 5.1
+		- É um executor de pacotes npm que pode executar qualquer pacote que você quiser do registro npm sem sequer instalar esse pacote
+		- FOCO EM EXECUÇÃO
+
+Métodos de Requisições:
+	INSOMNIA:
+		>É necessário para rodar todos os métodos que não sejam o GET
+		>Criar requisições e envia-las direto do Insomnia
+		>Enviar informações do tipo JSON e resgata-las através do request.body no js
+	-GET: Leitura
+		Request = Requisição
+		Response = Retorno da Requisição
+		-Métodos de Resquest:
+			-Route Params: 
+				Utiliza um parâmetro por exemplo o ID de um usuário {"/message/:ID"}
+				Os parâmetros são obrigatórios
+			-Query Params:
+				{rota?QP1=x&QP2=y} QP = Query Param
+				Os parâmetros não são obrigatório
+	-POST: Criação
+	-PUT: Atualização
+	-DELETE: Deletar
+	-PATCH: Atualização parcial
+
+Projeto Node:
+	-npm init -y (Instala a api para o projeto na pasta)
+	-package.json:
+		Arquivo com informações sobre o projeto
+		Guarda a informações de todos os módulos instalados
+	-npm install:
+		Instala todas as dependencias do node no projeto, inclusive o que estiver faltando
+	Express Framework:
+		* Módulo para requisições em node
+		{	-npm install express --save;
+		* Express AsyncErrors:
+			*Módulo que permite o tratamento de erros
+			{ -npm install express-async-errors --save;
+
+
+	-Pasta src:
+		Pasta de arquivos da aplicação
+		-server.js
+			{node src/server.js}:
+				Inicia a aplicação em node
+				Para facilitar a iniciação pode criar um script no package.json
+
+Arquitetura escolhida:
+	Server: 
+		Recebe as rotas e informações do usuário
+	Routes:
+		Recebe a rota do servidor e encaminha para o controlador certo
+	Controller:
+		Recebe a requisição da rota e controla o response
+	Utils:
+		Coisas extras do projeto como tratamento de erros
+
+Middleware:
+	* Função que tem acesso ao objeto de solicitação, o objeto de resposta e a próxima função de middlewater no cicle de solicitação-resposta do aplicativo
+	* A próxima função middleware é denotada por uma variável chamada {next}
+	* Executam qualquer código
+	* Fazem mudanças nos objetos de solicitação e resposta
+	* Encerram o ciclo de solicitação-resposta ou chamam o próximo middleware na pilha
+	* .status(num) Retorna um HTTP Code de status
+
+Banco de Dados:
+	> Tipos de dados:
+		> int = Inteiro
+		> varchar = String
+		> date = data
+		> ? = campo opcional
+	> Banco de dados relacional:
+		- Composto por colunas e linhas
+		- Chave primaria = tem um valor único dentro do banco de dados
+	> SQLite:
+		{ npm install sqlite3 sqlite --save;
+		> SQL:
+			- Linguagem de consulta estruturada
+			-	Comandos DDL: Linguagem para manipulação de banco de dados
+	> SGBD = Sistema Gerenciado de Banco de Dados:
+		* Beekeeper Studio:
+			> Entities = Tabela
+			> Criando uma tabela:
+				CREATE TABLE nome (
+					nome TIPO
+				)
+			> Alterando uma tabela:
+				ALTER TABLE nome = Comando base de alteração
+				RENAME TO outro = Renomeia a table
+				RENAME COLUMN nome TO outro = Renomeia uma coluna
+				ADD nome TIPO = Adiciona uma nova coluna
+				DROP COLUMN nome = Deleta uma coluna
+			> Manipulando uma tabela:
+				- DML: Data Manipulation Language
+					> C - Create => INSERT
+					> R - Read => SELECT
+					> U - Update => UPDATE
+					> D - Delete => DELETE
+				> Inserindo dados na tabela:
+					INSERT INTO nome
+					(name, email, password)
+					VALUES
+					('nome', 'email', 'senha')
+				> Selecionando uma tabela:
+					SELECT * FROM nome;
+				> Atualizando uma tabela:
+					UPDATE nome SET
+					coluna = algo
+					WHERE id = id
+				> Deletando um registro:
+					DELETE FROM name
+					WHERE id = id
+		* Migrations:
+			- Auxilia na criação de tabelas automaticas
+	> Chave Primária:
+		- É um identificador único dentro da tabela
+		- Garante que um valor não se repita
+		- Ex: o ID
+	> Chave Estrangeira:
+		- É uma chave gerada em outra tabela
+		- Objetivo de conectar tabelas, vinculando registros
+	> Cardinalidade:
+		- É a frequência que uma tabela se relaciona com outra
+
+Criptografia de Senhas:
+	{ npm install bcryptjs 
+	* Função {hash} é responsável pela criptografia
+
+Query Builder:
+	- É um construtor de consulta
+	- O Query Builder permite que você contrua instruções SQL independente do banco de dados utilizado
+	- O Query Builder controi o banco de dados na linguagem que você quiser usando a própria linguagem (Inclusive menos código)
+	> KNEX.JS:
+		=> https://knexjs.org/guide/#node-js
+		{ $ npm install knex --save
+		{ npx knex init 
+	> Migrations:
+		- É uma forma de versionar a base de dados
+		- Trabalha na manipulação da base de dados: criando, alterando ou removendo
+		> Métodos:
+			- UP: Responsável por criar ou alterar algo no banco de dados
+			- DOWN: Responsável pelo rollback, ou seja, desfazer as alterações realizadas pela migration
+		{ npx knex migrate:make nome //Cria o arquivo .js da tabela
+		{ npx knex migrate:run //latest o código de criação da tabela
+
+Inner Join:
+	- Verifica registros em comum que existem entre tabelas utilizando de uma tabela em comum entre as tabelas
+	> table => primary_key => foreign_key
+
+Map & Filter:
+	> Map:
+		- Função que percorre cada elemento que existe dentro de um array
+		- Retorna um novo array
+	> Filter:
+		- Filtra algum conteúdo do array
+		- Retorna um novo array filtrado
